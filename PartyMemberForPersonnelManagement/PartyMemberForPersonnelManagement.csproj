@@ -465,6 +465,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddData.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\UpdateData.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

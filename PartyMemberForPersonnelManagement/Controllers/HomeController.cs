@@ -29,16 +29,16 @@ namespace PartyMemberForPersonnelManagement.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult LoginIn(string username, string password)
         {
             StatusAttribute res = new StatusAttribute();
-            DataTable dt = db.AccessReader("select username,ID from admins where username='" + username + "'");
+            DataTable dt = db.AccessReader("select password,ID from admins where username='" + username + "'");
             if (dt.Rows.Count > 0 && dt.Rows[0][0].ToString() == Md5.GetMd5Word(username, password).ToString())
             {
                 res.status = true;
                 res.message = "登录成功！";
-                HttpContext.Session["user"] = dt.Rows[0][1];
+                HttpContext.Session["admin"] = dt.Rows[0][1];
             }
             else
             {
@@ -95,5 +95,43 @@ namespace PartyMemberForPersonnelManagement.Controllers
         {
             return PartialView();
         }
+
+        [HttpPost]
+        [UserAuthorization("admin", "/Home/Login")]
+        public JsonResult AddDataIn(string name, string stuId, string sex, string arddress, string cs, string tj, string cw, string jy, string ss, string zz)
+        {
+            StatusAttribute res = new StatusAttribute();
+            try
+            {
+                if (db.AccessQuery("insert into Users(Name,StudentId, Sex, BirthDate, Address, SubmitDate, SuccessDate, GraduationDate, Absorption, Positive, IsDel)  values('" + name + "','" + stuId + "'," + (sex == "男" ? 0 : 1) + ",'" + cs + "','" + arddress + "','" + tj + "','" + cw + "','" + jy + "','" + ss + "','" + zz + "',0)") >= 1)
+                {
+                    res.status = true;
+                    res.message = "添加成功！";
+                }
+                else
+                {
+                    res.status = false;
+                    res.message = "添加失败！未知错误...";
+                }
+            }
+            catch
+            {
+                res.status = false;
+                res.message = "添加失败！未知错误...";
+            }
+            return Json(res);
+        }
+
+        public PartialViewResult UpdateData(string id)
+        {
+            ViewBag.data = db.AccessReader("select * from Users where id=" + id).Rows[0];
+            return PartialView();
+        }
     }
 }
+
+
+
+
+
+

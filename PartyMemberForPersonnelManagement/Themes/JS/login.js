@@ -3,7 +3,7 @@
     $("#IbtnEnter").click(function ()
     {
         $.ajax({
-            type: "get",
+            type: "post",
             url: "/Home/LoginIn",
             data: {
                 username: $("#TxtUserName").val(),

@@ -28,7 +28,61 @@
             disabled: true,
             handler: function ()
             {
-
+                var row = $("#dg").datagrid("getSelected");
+                $('#dd').dialog({
+                    title: '添加人员',
+                    width: 400,
+                    height: 420,
+                    closed: false,
+                    cache: false,
+                    modal: true,
+                    method: "post",
+                    href: "/Home/UpdateData",
+                    queryParams: {
+                        id: row.ID
+                    },
+                    buttons: [{
+                        text: '确定',
+                        iconCls: 'icon-ok',
+                        handler: function ()
+                        {
+                            var row = $("#dg").datagrid("getSelected");
+                            $.messager.progress({ title: "请稍后...", msg: "玩命修改中...", text: "请稍后..." });
+                            $.ajax({
+                                type: "post",
+                                url: "/Home/AddDataIn",
+                                data: {
+                                    id: row.ID
+                                },
+                                success: function (data)
+                                {
+                                    $.messager.progress('close');
+                                    if (data.status)
+                                    {
+                                        $.messager.alert("提示", data.message, "ok");
+                                    }
+                                    else
+                                    {
+                                        $.messager.alert("提示", data.message, "error");
+                                    }
+                                    $(".window").remove();
+                                    $(".window-shadow").remove();
+                                    $(".window-mask").remove();
+                                    $("#dg").datagrid("reload", null);
+                                }
+                            });
+                        }
+                    }, {
+                        text: '取消',
+                        iconCls: 'icon-canel',
+                        handler: function ()
+                        {
+                            $(".window").remove();
+                            $(".window-shadow").remove();
+                            $(".window-mask").remove();
+                        }
+                    }]
+                });
             }
         }, '-', {
             id: "add",
@@ -39,12 +93,61 @@
                 $('#dd').dialog({
                     title: '添加人员',
                     width: 400,
-                    height: 200,
+                    height: 420,
                     closed: false,
                     cache: false,
                     modal: true,
                     method: "post",
-                    href: "/Home/AddData"
+                    href: "/Home/AddData",
+                    buttons: [{
+                        text: '确定',
+                        iconCls: 'icon-ok',
+                        handler: function ()
+                        {
+                            $.messager.progress({ title: "请稍后...", msg: "玩命添加中...", text: "请稍后..." });
+                            $.ajax({
+                                type: "post",
+                                url: "/Home/AddDataIn",
+                                data: {
+                                    name: $("#name").val(),
+                                    stuId: $("#stuId").val(),
+                                    sex: $("#sex").val(),
+                                    arddress: $("#arddress").val(),
+                                    cs: $("#cs").datebox("getText"),
+                                    tj: $("#tj").datebox("getText"),
+                                    cw: $("#cw").datebox("getText"),
+                                    jy: $("#jy").datebox("getText"),
+                                    ss: $("#ss").datebox("getText"),
+                                    zz: $("#zz").datebox("getText")
+                                },
+                                success: function (data)
+                                {
+                                    $.messager.progress('close');
+                                    if (data.status)
+                                    {
+                                        $.messager.alert("提示", data.message, "ok");
+                                    }
+                                    else
+                                    {
+                                        $.messager.alert("提示", data.message, "error");
+                                    }
+                                    $(".window").remove();
+                                    $(".window-shadow").remove();
+                                    $(".window-mask").remove();
+                                    $("#dg").datagrid("reload", null);
+                                }
+                            });
+                        }
+                    }, {
+                        text: '取消',
+                        iconCls: 'icon-canel',
+                        handler: function ()
+                        {
+                            $(".window").remove();
+                            $(".window-shadow").remove();
+                            $(".window-mask").remove();
+                        }
+                    }]
                 });
             }
         }, '-', {
@@ -93,12 +196,14 @@
 
 
             }
-        }, '-', {
-            id: "import",
-            iconCls: 'icon-add',
-            text: "导入",
-            handler: function () { alert('帮助按钮') }
-        }],
+        }
+        //, '-', {
+        //    id: "import",
+        //    iconCls: 'icon-add',
+        //    text: "导入",
+        //    handler: function () { alert('帮助按钮') }
+        //}
+        ],
         onSelect: function (rowIndex, rowData)
         {
             $('#edit').linkbutton('enable');
