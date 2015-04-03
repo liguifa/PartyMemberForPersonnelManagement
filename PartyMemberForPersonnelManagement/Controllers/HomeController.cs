@@ -122,10 +122,38 @@ namespace PartyMemberForPersonnelManagement.Controllers
             return Json(res);
         }
 
+        [HttpPost]
+        [UserAuthorization("admin", "/Home/Login")]
         public PartialViewResult UpdateData(string id)
         {
             ViewBag.data = db.AccessReader("select * from Users where id=" + id).Rows[0];
             return PartialView();
+        }
+
+        [HttpPost]
+        [UserAuthorization("admin", "/Home/Login")]
+        public JsonResult UpdateDataIn(int id, string name, string stuId, string sex, string arddress, string cs, string tj, string cw, string jy, string ss, string zz)
+        {
+            StatusAttribute res = new StatusAttribute();
+            try
+            {
+                if (db.AccessQuery("Update Users set Name='" + name + "',StudentId='" + stuId + "', Sex=" + (sex == "男" ? 0 : 1) + ", BirthDate='" + cs + "', Address='" + arddress + "', SubmitDate='" + tj + "', SuccessDate='" + cw + "', GraduationDate='" + jy + "', Absorption='" + ss + "', Positive='" + zz + "' where ID=" + id) >= 1)
+                {
+                    res.status = true;
+                    res.message = "修改成功！";
+                }
+                else
+                {
+                    res.status = false;
+                    res.message = "修改失败！未知错误...";
+                }
+            }
+            catch
+            {
+                res.status = false;
+                res.message = "修改失败！未知错误...";
+            }
+            return Json(res);
         }
     }
 }

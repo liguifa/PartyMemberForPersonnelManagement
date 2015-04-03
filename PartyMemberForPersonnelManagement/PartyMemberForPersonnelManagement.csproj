@@ -403,6 +403,7 @@
     <Content Include="Themes\Css\easyui\themes\metro\window.css" />
     <Content Include="Themes\Css\User_Login.css" />
     <Content Include="Themes\Css\xtree.css" />
+    <Content Include="Themes\Images\bg.jpg" />
     <Content Include="Themes\Images\bg.png" />
     <Content Include="Themes\Images\bg02.png" />
     <Content Include="Themes\Images\bg_btn.png" />

@@ -29,8 +29,9 @@
             handler: function ()
             {
                 var row = $("#dg").datagrid("getSelected");
+                $("body").append(" <div id='dd'></div>");
                 $('#dd').dialog({
-                    title: '添加人员',
+                    title: '编辑人员',
                     width: 400,
                     height: 420,
                     closed: false,
@@ -50,9 +51,19 @@
                             $.messager.progress({ title: "请稍后...", msg: "玩命修改中...", text: "请稍后..." });
                             $.ajax({
                                 type: "post",
-                                url: "/Home/AddDataIn",
+                                url: "/Home/UpdateDataIn",
                                 data: {
-                                    id: row.ID
+                                    id: row.ID,
+                                    name: $("#name").val(),
+                                    stuId: $("#stuId").val(),
+                                    sex: $("#sex").val(),
+                                    arddress: $("#arddress").val(),
+                                    cs: $("#cs").datebox("getText"),
+                                    tj: $("#tj").datebox("getText"),
+                                    cw: $("#cw").datebox("getText"),
+                                    jy: $("#jy").datebox("getText"),
+                                    ss: $("#ss").datebox("getText"),
+                                    zz: $("#zz").datebox("getText")
                                 },
                                 success: function (data)
                                 {
@@ -74,7 +85,7 @@
                         }
                     }, {
                         text: '取消',
-                        iconCls: 'icon-canel',
+                        iconCls: 'icon-cancel',
                         handler: function ()
                         {
                             $(".window").remove();
@@ -90,6 +101,7 @@
             text: "添加",
             handler: function ()
             {
+                $("body").append(" <div id='dd'></div>");
                 $('#dd').dialog({
                     title: '添加人员',
                     width: 400,
@@ -140,7 +152,7 @@
                         }
                     }, {
                         text: '取消',
-                        iconCls: 'icon-canel',
+                        iconCls: 'icon-cancel',
                         handler: function ()
                         {
                             $(".window").remove();
@@ -210,6 +222,9 @@
             $('#remove').linkbutton('enable');
         }
     });
+
+    $(".panel-title:last").html("<a href='http://www.liguifa.wang' target='_blank'>关于作者</a>");
+   // $(".panel-body").Css("background", "/Themes/Images/bg.jpg");
 });
 
 function GetSex(value)

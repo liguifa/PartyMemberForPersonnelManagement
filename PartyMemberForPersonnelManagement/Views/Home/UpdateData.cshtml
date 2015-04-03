@@ -1,18 +1,31 @@
-﻿<label>姓名:</label><input id="name" type="text" value=@ViewBag.data["Name"] /><br /><br />
+﻿<script>
+    $.fn.datebox.defaults.parser = function (s)
+    {
+        var t = Date.parse(s);
+        if (!isNaN(t))
+        {
+            return new Date(t);
+        } else
+        {
+            return new Date();
+        }
+    }
+</script>
+<label>姓名:</label><input id="name" type="text" value=@ViewBag.data["Name"] /><br /><br />
 <label>学号:</label><input id="stuId" type="text" value=@ViewBag.data["StudentId"] /><br /><br />
 <label>性别:</label>
 <select id="sex">
-    <option>男</option>
-    <option>女</option>
+    <option value="0">男</option>
+    <option value="1">女</option>
 </select><br /><br />
 <label>家庭住址:</label><input id="arddress" type="text" value=@ViewBag.data["Address"] /><br /><br />
-<label>出生日期:</label><input id="cs" type="text" class="easyui-datebox" required="required" /><br /><br />
-<label>提交日期:</label><input id="tj" type="text" class="easyui-datebox" required="required" /><br /><br />
-<label>成为日期:</label><input id="cw" type="text" class="easyui-datebox" required="required" /><br /><br />
-<label>结业日期:</label><input id="jy" type="text" class="easyui-datebox" required="required" /><br /><br />
-<label>吸收日期:</label><input id="ss" type="text" class="easyui-datebox" required="required" /><br /><br />
-<label>转正日期:</label><input id="zz" type="text" class="easyui-datebox" required="required" />
+<label>出生日期:</label><input id="cs" type="text" value=@ViewBag.data["BirthDate"] class="easyui-datebox" required="required" /><br /><br />
+<label>提交日期:</label><input id="tj" type="text" value=@ViewBag.data["SubmitDate"] class="easyui-datebox" required="required" /><br /><br />
+<label>成为日期:</label><input id="cw" type="text" value=@ViewBag.data["SuccessDate"] class="easyui-datebox" required="required" /><br /><br />
+<label>结业日期:</label><input id="jy" type="text" value=@ViewBag.data["GraduationDate"] class="easyui-datebox" required="required" /><br /><br />
+<label>吸收日期:</label><input id="ss" type="text" value=@ViewBag.data["Absorption"] class="easyui-datebox" required="required" /><br /><br />
+<label>转正日期:</label><input id="zz" type="text" value=@ViewBag.data["Positive"] class="easyui-datebox" required="required" />
 
 <script>
-    
+    $("#sex").val('@ViewBag.data["Sex"]');
 </script>
