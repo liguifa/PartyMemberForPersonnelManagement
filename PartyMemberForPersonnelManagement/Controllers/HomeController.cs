@@ -57,7 +57,7 @@ namespace PartyMemberForPersonnelManagement.Controllers
             string json = "{\"total\":\"" + count + "\",\"rows\":[";
             foreach (DataRow dr in dt.Rows)
             {
-                json += "{\"ID\":\"" + dr["ID"] + "\",\"Name\":\"" + dr["Name"] + "\",\"StudentId\":\"" + dr["StudentId"] + "\",\"Sex\":\"" + dr["Sex"] + "\",\"BirthDate\":\"" + dr["BirthDate"] + "\",\"Address\":\"" + dr["Address"] + "\",\"SubmitDate\":\"" + dr["SubmitDate"] + "\",\"SuccessDate\":\"" + dr["SuccessDate"] + "\",\"GraduationDate\":\"" + dr["GraduationDate"] + "\",\"Absorption\":\"" + dr["Absorption"] + "\",\"Positive\":\"" + dr["Positive"] + "\"},";
+                json += "{\"ID\":\"" + dr["ID"] + "\",\"school\":\"" + dr["School"] + "\",\"class\":\"" + dr["Class"] + "\",\"Name\":\"" + dr["Name"] + "\",\"StudentId\":\"" + dr["StudentId"] + "\",\"Sex\":\"" + dr["Sex"] + "\",\"BirthDate\":\"" + dr["BirthDate"] + "\",\"Address\":\"" + dr["Address"] + "\",\"SubmitDate\":\"" + dr["SubmitDate"] + "\",\"SuccessDate\":\"" + dr["SuccessDate"] + "\",\"GraduationDate\":\"" + dr["GraduationDate"] + "\",\"Absorption\":\"" + dr["Absorption"] + "\",\"Positive\":\"" + dr["Positive"] + "\",\"image\":\"" + dr["Image"] + "\",\"备注\":\"" + dr["Append"] + "\"},";
             }
             json = json.Substring(0, json.Length - 1) + "]}";
             return json;
