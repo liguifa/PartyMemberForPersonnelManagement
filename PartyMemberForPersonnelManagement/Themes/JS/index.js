@@ -1,4 +1,5 @@
-﻿$(document).ready(function ()
+﻿var time;
+$(document).ready(function ()
 {
     $('#dg').datagrid({
         url: '/Home/GetUserList',
@@ -11,6 +12,7 @@
         columns: [[
             { field: 'ID', title: 'id', hidden: true, width: 100 },
             { field: 'school', title: '学院', width: 100 },
+            { field: 'image', title: '相片', width: 100, formatter: getButton },
             { field: 'Name', title: '姓名', width: 100 },
             { field: 'class', title: '班级', width: 100 },
             { field: 'StudentId', title: '学号', width: 100 },
@@ -22,8 +24,7 @@
             { field: 'GraduationDate', title: '党校结业日期', width: 100, formatter: getDate },
             { field: 'Absorption', title: '吸收为预备党员日期', width: 100, formatter: getDate },
             { field: 'Positive', title: '转为中共党员日期', width: 100, formatter: getDate },
-            { field: 'append', title: '备注', width: 100 },
-            { field: 'image', title: '查看相片', width: 100, formatter: getButton }
+            { field: 'append', title: '备注', width: 100 }
         ]],
         toolbar: [{
             id: "edit",
@@ -229,17 +230,23 @@
 
     $(".panel-title:last").html("<a href='http://www.liguifa.wang' target='_blank'>关于作者</a>");
     // $(".panel-body").Css("background", "/Themes/Images/bg.jpg");
-
-    //此处为异步请求模式，具体的json格式，请等待文档更新。或者你直接通过请求看photos.json
-    var conf = {};
-    $.getJSON('ajax地址', {}, function (json)
-    {
-        conf.photoJSON = json; //保存json，以便下次直接读取内存数据
-        layer.photos({
-            json: json
-        });
-    });
 });
+var msg;
+function UpdateCall()
+{
+    var data = $(window.frames["iframe"].document).find("body").text();
+    if (data != "")
+    {
+        clearInterval(time);
+        layer.close(msg);
+        data = JSON.parse(data);
+        if (data.status)
+        {
+            setCookie('image', data.append,1);
+        }
+        alert(data.message);
+    }
+}
 
 function GetSex(value)
 {
@@ -257,7 +264,7 @@ function getDate(date)
 
 function getButton(value)
 {
-    return "<img style='width:100px;height:100px' src='" + value + "' onclick='searchImage(\"" + value + "\")' />";
+    return "<img style='width:50px;height:50px' src='" + value + "' onclick='searchImage(\"" + value + "\")' />";
 }
 
 function searchImage(value)
@@ -269,4 +276,11 @@ function searchImage(value)
         area: ['600px', '360px'],
         page: { html: '<img src="' + value + '">' }
     });
+}
+
+function UpdateImage()
+{
+    msg=layer.load('上传中...', 300000000000000000);
+    $("#update").trigger("click");
+    time = setInterval("UpdateCall()", 1000);
 }

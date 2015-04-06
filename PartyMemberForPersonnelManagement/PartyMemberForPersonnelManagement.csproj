@@ -424,6 +424,7 @@
     <Content Include="Themes\Images\user_top_c.gif" />
     <Content Include="Themes\Images\user_top_l.gif" />
     <Content Include="Themes\Images\user_top_r.gif" />
+    <Content Include="Themes\JS\Cookie.js" />
     <Content Include="Themes\JS\easyui\easyloader.js" />
     <None Include="Themes\JS\easyui\jquery-1.11.2.intellisense.js" />
     <Content Include="Themes\JS\easyui\jquery-1.11.2.js" />
@@ -481,7 +482,9 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\UpdateData.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Themes\Update\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

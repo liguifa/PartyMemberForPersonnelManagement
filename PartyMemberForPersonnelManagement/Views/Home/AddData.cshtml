@@ -1,5 +1,11 @@
-﻿<label>姓名:</label><input id="name" type="text" /><br /><br />
+﻿<label>学院:</label><input id="school" type="text" /><br /><br />
+<label>姓名:</label><input id="name" type="text" /><br /><br />
+<form id="updateImage" target="iframe" action="/Home/UpdatePhoto" method="post" enctype="multipart/form-data">
+    <label>照片</label><input id="photo" name="photo" type="file" onchange="UpdateImage()" /><br /><br />
+    <button type="submit" id="update" style="display:none"></button>
+</form>
 <label>学号:</label><input id="stuId" type="text" /><br /><br />
+<label>班级:</label><input id="classRome" type="text" /><br /><br />
 <label>性别:</label>
 <select id="sex">
     <option>男</option>
@@ -11,4 +17,7 @@
 <label>成为日期:</label><input id="cw" type="text" class="easyui-datebox" required="required" /><br /><br />
 <label>结业日期:</label><input id="jy" type="text" class="easyui-datebox" required="required" /><br /><br />
 <label>吸收日期:</label><input id="ss" type="text" class="easyui-datebox" required="required" /><br /><br />
-<label>转正日期:</label><input id="zz" type="text" class="easyui-datebox" required="required" />
+<label>转正日期:</label><input id="zz" type="text" class="easyui-datebox" required="required" /><br /><br />
+<label>备注:</label><input id="append" type="text" /><br /><br />
+
+<iframe class="iframe" id="iframe" name="iframe" style="display:none"></iframe>

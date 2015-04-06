@@ -57,7 +57,7 @@ namespace PartyMemberForPersonnelManagement.Controllers
             string json = "{\"total\":\"" + count + "\",\"rows\":[";
             foreach (DataRow dr in dt.Rows)
             {
-                json += "{\"ID\":\"" + dr["ID"] + "\",\"school\":\"" + dr["School"] + "\",\"class\":\"" + dr["Class"] + "\",\"Name\":\"" + dr["Name"] + "\",\"StudentId\":\"" + dr["StudentId"] + "\",\"Sex\":\"" + dr["Sex"] + "\",\"BirthDate\":\"" + dr["BirthDate"] + "\",\"Address\":\"" + dr["Address"] + "\",\"SubmitDate\":\"" + dr["SubmitDate"] + "\",\"SuccessDate\":\"" + dr["SuccessDate"] + "\",\"GraduationDate\":\"" + dr["GraduationDate"] + "\",\"Absorption\":\"" + dr["Absorption"] + "\",\"Positive\":\"" + dr["Positive"] + "\",\"image\":\"" + dr["Image"] + "\",\"备注\":\"" + dr["Append"] + "\"},";
+                json += "{\"ID\":\"" + dr["ID"] + "\",\"school\":\"" + dr["School"] + "\",\"class\":\"" + dr["Class"] + "\",\"Name\":\"" + dr["Name"] + "\",\"StudentId\":\"" + dr["StudentId"] + "\",\"Sex\":\"" + dr["Sex"] + "\",\"BirthDate\":\"" + dr["BirthDate"] + "\",\"Address\":\"" + dr["Address"] + "\",\"SubmitDate\":\"" + dr["SubmitDate"] + "\",\"SuccessDate\":\"" + dr["SuccessDate"] + "\",\"GraduationDate\":\"" + dr["GraduationDate"] + "\",\"Absorption\":\"" + dr["Absorption"] + "\",\"Positive\":\"" + dr["Positive"] + "\",\"image\":\"" + dr["h_Image"] + "\",\"备注\":\"" + dr["Append"] + "\"},";
             }
             json = json.Substring(0, json.Length - 1) + "]}";
             return json;
@@ -98,12 +98,14 @@ namespace PartyMemberForPersonnelManagement.Controllers
 
         [HttpPost]
         [UserAuthorization("admin", "/Home/Login")]
-        public JsonResult AddDataIn(string name, string stuId, string sex, string arddress, string cs, string tj, string cw, string jy, string ss, string zz)
+        public JsonResult AddDataIn(string school, string name, string stuId, string classRome, string sex, string arddress, string cs, string tj, string cw, string jy, string ss, string zz, string append)
         {
             StatusAttribute res = new StatusAttribute();
+            //string image = HttpContext.Request.Cookies["image"].Value;
+            string image = "123";
             try
             {
-                if (db.AccessQuery("insert into Users(Name,StudentId, Sex, BirthDate, Address, SubmitDate, SuccessDate, GraduationDate, Absorption, Positive, IsDel)  values('" + name + "','" + stuId + "'," + (sex == "男" ? 0 : 1) + ",'" + cs + "','" + arddress + "','" + tj + "','" + cw + "','" + jy + "','" + ss + "','" + zz + "',0)") >= 1)
+                if (db.AccessQuery("insert into Users(Name,StudentId, Sex, BirthDate, Address, SubmitDate, SuccessDate, GraduationDate, Absorption, Positive,h_Image,IsDel,School,Class,Append)  values('" + name + "','" + stuId + "'," + (sex == "男" ? 0 : 1) + ",'" + cs + "','" + arddress + "','" + tj + "','" + cw + "','" + jy + "','" + ss + "','" + zz + "','" + image + "','0','" + school + "','" + classRome + "','" + append + "')") >= 1)
                 {
                     res.status = true;
                     res.message = "添加成功！";
@@ -152,6 +154,30 @@ namespace PartyMemberForPersonnelManagement.Controllers
             {
                 res.status = false;
                 res.message = "修改失败！未知错误...";
+            }
+            return Json(res);
+        }
+
+        [HttpPost]
+        [UserAuthorization("admin", "/Home/Login")]
+        public JsonResult UpdatePhoto()
+        {
+            StatusAttribute res = new StatusAttribute();
+            try
+            {
+                HttpPostedFileBase file = Request.Files["photo"];
+                string name = DateTime.Now.ToString("yyMMddhhmmss") + ".jpg";
+                string filename = "~/Themes/Update/Images/" + name;
+                filename = this.Server.MapPath(filename);
+                file.SaveAs(filename);
+                res.status = true;
+                res.message = "上传成功！";
+                res.append = name;
+            }
+            catch
+            {
+                res.status = false;
+                res.message = "上传失败！未知错误...";
             }
             return Json(res);
         }
