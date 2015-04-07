@@ -426,6 +426,7 @@
     <Content Include="Themes\Images\user_top_r.gif" />
     <Content Include="Themes\JS\Cookie.js" />
     <Content Include="Themes\JS\easyui\easyloader.js" />
+    <None Include="Properties\PublishProfiles\WEB.pubxml" />
     <None Include="Themes\JS\easyui\jquery-1.11.2.intellisense.js" />
     <Content Include="Themes\JS\easyui\jquery-1.11.2.js" />
     <Content Include="Themes\JS\easyui\jquery-1.11.2.min.js" />

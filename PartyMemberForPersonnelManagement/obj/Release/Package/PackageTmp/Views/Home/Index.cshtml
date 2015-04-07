@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>首页</title>
+    <script src="~/Themes/JS/easyui/jquery-1.11.2.min.js"></script>
+    <script src="~/Themes/JS/easyui/jquery.easyui.min-1.4.1.js"></script>
+    <script src="~/Themes/JS/layer/layer.min.js"></script>
+    <script src="~/Themes/JS/Cookie.js"></script>
+    <script src="~/Themes/JS/index.js"></script>
+    <link href="~/Themes/Css/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
+    <link href="~/Themes/Css/easyui/themes/color.css" rel="stylesheet" />
+    <link href="~/Themes/Css/easyui/themes/icon.css" rel="stylesheet" />
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',title:'预备党员管理系统',split:true,height:100"></div>
+    <div data-options="region:'center',title:'管理操作'">
+        <table id="dg"></table>
+    </div>
+    <div data-options="region:'south',title:'关于作者',collapsible:false,split:true,height:20">
+    </div>
+</body>
+</html>
